@@ -1,12 +1,13 @@
 import React, { useRef } from 'react'
 import { MdLocalFireDepartment, MdFlashOn, MdStar, MdShoppingCart } from "react-icons/md"
 import { useTranslation } from "react-i18next";
+import CS2 from '../images/cs2-2.jpg'
 
 const offers = [
 	{
 		game: "GENSHIN IMPACT",
 		title: "Аккаунт Genshin Impact AR 55 | 5★ Hu Tao + Yelan",
-		img: "/images/genshin.png",
+		img: "/images/CS2.jpg",
 		hit: true,
 		discount: "-29%",
 		instant: true,
@@ -64,7 +65,7 @@ const offers = [
 const games = [
 	{
 		name: 'Genshin Impact',
-		img: '/images/genshin.png',
+		img: CS2,
 		count: '12,540 товаров'
 	},
 	{
@@ -151,16 +152,13 @@ const PopulalGames = () => {
 					{games.map((game) => (
 						<div
 							key={game.name}
-							className="bg-[#18181b] rounded-2xl w-56 h-72 flex flex-col items-center justify-between border border-[#23232a] px-4 py-6 min-w-[224px] max-w-[224px] transition-shadow"
+							className="bg-[#18181b] rounded-2xl w-full flex flex-col items-center justify-between border border-[#23232a] px-4 py-4 min-w-[200px] max-w-[200px] transition-shadow"
 						>
 							<img
 								src={game.img}
 								alt={game.name}
-								className="w-12 h-12 object-contain mb-2 mt-2"
+								className="w-full h-32 object-cover rounded-lg mb-2 mt-2 bg-black"
 							/>
-							<div className="text-white text-lg font-medium text-center mb-2 leading-6">
-								{game.name}
-							</div>
 							<div className="w-full mt-auto">
 								<div className="text-white font-semibold text-base text-center">
 									{game.name}

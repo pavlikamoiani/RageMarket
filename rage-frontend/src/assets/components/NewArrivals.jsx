@@ -1,6 +1,7 @@
 import React from 'react'
 import { MdFlashOn, MdStar, MdShoppingCart } from "react-icons/md"
 import { useTranslation } from "react-i18next";
+import CS2 from '../images/cs2-2.jpg'
 
 const offers = [
 	{
@@ -87,9 +88,9 @@ const NewArrivals = () => {
 						className="flex-shrink-0 bg-[#18181b] rounded-2xl border border-[#23232a] shadow-lg min-w-[340px] max-w-[340px] w-full flex flex-col justify-between transition hover:shadow-xl"
 					>
 						<div className="relative px-5 pt-5 pb-2 h-[140px] flex flex-col">
-							<img src={offer.img} alt={offer.game} className="w-10 h-10 rounded-lg object-contain mb-2" />
+							<img src={CS2} alt={offer.game} className="w-full h-32 object-cover rounded-lg mb-2 mt-2 bg-black" />
 							<div className="flex flex-col gap-1">
-								{offer.hit && (
+								{/* {offer.hit && (
 									<span className="absolute left-5 top-3 flex items-center px-2 py-0.5 rounded-full bg-gradient-to-r from-red-500 to-orange-400 text-white text-xs font-bold shadow">
 										<span className="mr-1 text-xs">{t("hit")}</span>
 									</span>
@@ -101,7 +102,7 @@ const NewArrivals = () => {
 									<span className="absolute left-5 top-16 flex items-center px-2 py-0.5 rounded-full bg-violet-600 text-white text-xs font-medium">
 										<MdFlashOn className="mr-1 text-xs" /> {t("instant")}
 									</span>
-								)}
+								)} */}
 							</div>
 							<div className="mt-2 text-white text-base font-semibold leading-tight line-clamp-2">{offer.title}</div>
 						</div>

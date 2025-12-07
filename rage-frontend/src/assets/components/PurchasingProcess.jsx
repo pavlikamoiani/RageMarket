@@ -2,31 +2,31 @@ import React from 'react'
 import { MdPersonAddAlt, MdCreditCard, MdInventory2, MdCheckCircle } from "react-icons/md"
 import { useTranslation } from 'react-i18next';
 
-const steps = [
-	{
-		icon: <MdPersonAddAlt className="text-violet-500 text-3xl" />,
-		title: "Регистрация",
-		desc: "Создайте аккаунт бесплатно за минуту"
-	},
-	{
-		icon: <MdCreditCard className="text-cyan-400 text-3xl" />,
-		title: "Оплата",
-		desc: "Выберите удобный способ оплаты"
-	},
-	{
-		icon: <MdInventory2 className="text-green-400 text-3xl" />,
-		title: "Получение",
-		desc: "Получите товар мгновенно или по доставке"
-	},
-	{
-		icon: <MdCheckCircle className="text-yellow-400 text-3xl" />,
-		title: "Подтверждение",
-		desc: "Подтвердите получение и оставьте отзыв"
-	}
-]
-
 const PurchasingProcess = () => {
 	const { t } = useTranslation();
+
+	const steps = [
+		{
+			icon: <MdPersonAddAlt className="text-violet-500 text-3xl" />,
+			title: t("registration"),
+			desc: t("create_account_for_free_in_a_minute")
+		},
+		{
+			icon: <MdCreditCard className="text-cyan-400 text-3xl" />,
+			title: t("payment"),
+			desc: t("choose_a_convenient_payment_method")
+		},
+		{
+			icon: <MdInventory2 className="text-green-400 text-3xl" />,
+			title: t("receiving"),
+			desc: t("receive_the_product_instantly_or_by_delivery")
+		},
+		{
+			icon: <MdCheckCircle className="text-yellow-400 text-3xl" />,
+			title: t("confirmation"),
+			desc: t("confirm_receipt_and_leave_feedback")
+		}
+	]
 
 	return (
 		<div className="w-full py-16 px-[7%] bg-[#18181b]">

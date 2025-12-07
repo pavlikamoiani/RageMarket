@@ -1,6 +1,7 @@
 import React from 'react'
 import { MdAutoAwesome } from "react-icons/md"
 import { useTranslation } from 'react-i18next'
+import CS2 from '../images/cs2-2.jpg'
 
 const games = [
 	{
@@ -60,20 +61,20 @@ const Games = () => {
 					{t("all_categories")} <span className="text-lg">&#8594;</span>
 				</button>
 			</div>
-			<div className="grid grid-cols-3 grid-rows-2 gap-8">
+			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-8">
 				{games.map((game, idx) => (
 					<div
 						key={game.name}
-						className={`relative rounded-2xl overflow-hidden flex flex-col justify-end min-h-[220px] shadow-lg bg-gradient-to-br ${game.gradient}`}
+						className={`relative rounded-2xl overflow-hidden flex flex-col justify-end min-h-[180px] md:min-h-[220px] shadow-lg bg-gradient-to-br ${game.gradient}`}
 					>
 						<img
 							src={game.img}
 							alt={game.name}
-							className="absolute top-4 left-4 w-8 h-8 object-contain z-10"
+							className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-24 md:w-32 md:h-32 object-contain z-10"
 						/>
-						<div className="relative z-10 p-6">
-							<div className="text-white text-lg font-bold mb-1">{game.name}</div>
-							<div className="text-zinc-300 text-base">{game.count}</div>
+						<div className="relative z-10 p-4 md:p-6 mt-20 md:mt-28">
+							<div className="text-white text-base md:text-lg font-bold mb-1">{game.name}</div>
+							<div className="text-zinc-300 text-sm md:text-base">{game.count}</div>
 						</div>
 						<div className="absolute inset-0 opacity-20 flex items-center justify-center pointer-events-none">
 							<svg width="120" height="120" viewBox="0 0 120 120">

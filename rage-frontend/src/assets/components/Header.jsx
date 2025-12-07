@@ -4,13 +4,14 @@ import { FaGamepad } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 import { HiMenu, HiX } from "react-icons/hi";
 import { useTranslation } from "react-i18next";
-
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const [langOpen, setLangOpen] = useState(false);
 	const { i18n, t } = useTranslation();
 	const langRef = useRef(null);
+	const navigate = useNavigate();
 
 	const languages = [
 		{ code: 'en', name: 'English' },
@@ -91,11 +92,14 @@ const Header = () => {
 						<SlBasket className="w-6 h-6 text-gray-300" />
 						<span className="absolute -top-2 -right-2 bg-purple-500 text-white text-xs rounded-full px-1.5">3</span>
 					</div>
-					<button className="flex items-center gap-3 px-4 py-2 bg-[#18181b] text-white rounded-lg hover:bg-[#23232a] transition">
+					<button className="flex items-center gap-3 px-4 py-2 bg-[#18181b] text-white rounded-lg hover:bg-[#23232a] transition"
+						onClick={() => navigate('/login')}>
 						<SlUser className="w-4 h-4 text-gray-300" />
 						{t("login")}
 					</button>
-					<button className="px-4 py-2 bg-gradient-to-r from-purple-500 to-cyan-400 text-white rounded-lg font-medium hover:opacity-90 transition">
+					<button className="px-4 py-2 bg-gradient-to-r from-purple-500 to-cyan-400 text-white rounded-lg font-medium hover:opacity-90 transition"
+						onClick={() => navigate('/login')}
+					>
 						{t("register")}
 					</button>
 				</div>
@@ -107,66 +111,40 @@ const Header = () => {
 				</button>
 			</div>
 			{mobileOpen && (
-				<div className="fixed inset-0 bg-black bg-opacity-95 z-40 flex flex-col px-6 py-6 overflow-y-auto">
-					<div className="flex justify-between items-center mb-8">
+				<div className="fixed inset-0 bg-[#18181b] z-40 flex flex-col px-6 py-6 overflow-y-auto">
+					<div className="flex justify-between items-center mb-6">
 						<span className="text-xl font-bold text-white">RageMarket</span>
 						<button onClick={() => setMobileOpen(false)} className="text-white text-3xl">
 							<HiX />
 						</button>
 					</div>
-					<div className="flex flex-col gap-6 mb-8">
-						<div className="flex items-center cursor-pointer text-white font-medium text-lg">
-							{t("categories")}
-							<SlArrowDown className="ml-1 w-4 h-4 text-white" />
-						</div>
-						<span className="flex items-center text-gray-300 cursor-pointer text-lg">
-							<FaGamepad className="mr-1 w-4 h-4" />
-							{t("all_games")}
-						</span>
-						<span className="text-gray-300 cursor-pointer text-lg">{t("popular")}</span>
-					</div>
-					<div className="relative w-full mb-8">
-						<input
-							type="text"
-							placeholder={t("search_placeholder")}
-							className="w-full rounded-lg bg-[#18181b] text-gray-200 px-4 py-2 pl-10 focus:outline-none"
-						/>
-						<IoSearch className="absolute left-3 top-2.5 w-5 h-5 text-gray-400" />
-					</div>
-					<div className="flex items-center gap-4 mb-8">
-						<div className="relative z-50" ref={langRef}>
-							<button
-								onClick={() => setLangOpen(!langOpen)}
-								className="flex items-center gap-2 px-3 py-2 bg-[#18181b] text-gray-300 rounded-lg hover:bg-[#23232a] transition whitespace-nowrap"
-							>
-								{currentLang.toUpperCase()}
-								<SlArrowDown className={`w-3 h-3 transition-transform ${langOpen ? 'rotate-180' : ''}`} />
-							</button>
-							{langOpen && (
-								<div className="absolute top-full left-0 mt-2 bg-[#18181b] rounded-lg border border-gray-700 z-50 min-w-[150px] shadow-lg overflow-hidden">
-									{languages.map((lang) => (
-										<button
-											key={lang.code}
-											onClick={() => changeLanguage(lang.code)}
-											className={`block w-full text-left px-4 py-2 hover:bg-[#23232a] transition ${currentLang === lang.code ? 'text-purple-500 bg-[#23232a]' : 'text-gray-300'
-												}`}
-										>
-											{lang.name}
-										</button>
-									))}
-								</div>
-							)}
-						</div>
+					<div className="flex items-center gap-6 mb-6">
+						<IoSearch className="w-6 h-6 text-gray-400" />
 						<div className="relative">
 							<SlBasket className="w-6 h-6 text-gray-300" />
 							<span className="absolute -top-2 -right-2 bg-purple-500 text-white text-xs rounded-full px-1.5">3</span>
 						</div>
-						<button className="flex items-center gap-3 px-4 py-2 bg-[#18181b] text-white rounded-lg hover:bg-[#23232a] transition">
-							<SlUser className="w-4 h-4 text-gray-300" />
-							{t("login")}
+					</div>
+					<hr className="border-gray-700 mb-6" />
+					<div className="flex flex-col gap-5 mb-8">
+						<span className="text-gray-300 text-lg">Аккаунты</span>
+						<span className="text-gray-300 text-lg">Игровые предметы</span>
+						<span className="text-gray-300 text-lg">Валюта</span>
+						<span className="text-gray-300 text-lg">Буст услуги</span>
+						<span className="text-gray-300 text-lg">Ключи и коды</span>
+					</div>
+					<div className="mt-auto flex flex-col gap-4">
+						<button
+							className="w-full py-3 rounded-xl bg-[#18181b] text-white border border-gray-600 text-lg font-medium"
+							onClick={() => { setMobileOpen(false); navigate('/login'); }}
+						>
+							Войти
 						</button>
-						<button className="px-4 py-2 bg-gradient-to-r from-purple-500 to-cyan-400 text-white rounded-lg font-medium hover:opacity-90 transition">
-							{t("register")}
+						<button
+							className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-500 to-cyan-400 text-white text-lg font-medium"
+							onClick={() => { setMobileOpen(false); navigate('/login'); }}
+						>
+							Регистрация
 						</button>
 					</div>
 				</div>
