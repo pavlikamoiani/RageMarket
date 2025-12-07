@@ -1,7 +1,10 @@
-import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css'
 import './assets/i18n/i18n'
-import Header from './assets/components/Header'
+
+import Layout from './Layout';
+
+// Pages
 import Banner from './assets/components/Banner'
 import PopulalGames from './assets/components/PopulalGames'
 import HotOffers from './assets/components/HotOffers'
@@ -9,13 +12,11 @@ import Games from './assets/components/Games'
 import PurchasingProcess from './assets/components/PurchasingProcess'
 import NewArrivals from './assets/components/NewArrivals'
 import ForSellers from './assets/components/ForSellers'
-import Footer from './assets/components/Footer'
+import Login from './assets/components/Auth/Login'
 
-function App() {
-
+function Home() {
   return (
     <>
-      <Header />
       <Banner />
       <PopulalGames />
       <HotOffers />
@@ -23,8 +24,21 @@ function App() {
       <PurchasingProcess />
       <NewArrivals />
       <ForSellers />
-      <Footer />
     </>
+  )
+}
+
+function App() {
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
