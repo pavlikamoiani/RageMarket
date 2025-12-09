@@ -43,6 +43,11 @@ const Header = () => {
 	return (
 		<>
 			<div className="bg-black w-full flex items-center px-[10%] py-5 border-b border-gray-800 md:flex-row flex-row-reverse md:justify-between justify-between relative z-40">
+				<div className="flex items-center mr-4 cursor-pointer" onClick={() => navigate('/')}>
+					<div className="w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-cyan-400">
+						<span className="text-black font-extrabold text-2xl">R</span>
+					</div>
+				</div>
 				<div className="flex items-center gap-6 md:flex hidden">
 					<div className="flex items-center cursor-pointer text-white font-medium">
 						{t("categories")}

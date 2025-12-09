@@ -5,14 +5,14 @@ import './assets/i18n/i18n'
 import Layout from './Layout';
 
 // Pages
-import Banner from './assets/components/Banner'
-import PopulalGames from './assets/components/PopulalGames'
-import HotOffers from './assets/components/HotOffers'
-import Games from './assets/components/Games'
-import PurchasingProcess from './assets/components/PurchasingProcess'
-import NewArrivals from './assets/components/NewArrivals'
-import ForSellers from './assets/components/ForSellers'
-import Login from './assets/components/Auth/Login'
+import Banner from './components/Banner'
+import PopulalGames from './components/PopulalGames'
+import HotOffers from './components/HotOffers'
+import Games from './components/Games'
+import PurchasingProcess from './components/PurchasingProcess'
+import NewArrivals from './components/NewArrivals'
+import ForSellers from './components/ForSellers'
+import Login from './components/Auth/Login'
 
 function Home() {
   return (

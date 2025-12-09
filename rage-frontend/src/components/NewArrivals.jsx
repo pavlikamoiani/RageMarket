@@ -1,7 +1,7 @@
 import React from 'react'
 import { MdFlashOn, MdStar, MdShoppingCart } from "react-icons/md"
 import { useTranslation } from "react-i18next";
-import CS2 from '../images/cs2-2.jpg'
+import CS2 from '../assets/images/cs2-2.jpg'
 
 const offers = [
 	{
