@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import { MdLocalFireDepartment, MdFlashOn, MdStar, MdShoppingCart } from "react-icons/md"
 import { useTranslation } from "react-i18next";
 import CS2 from '../assets/images/cs2-2.jpg'
+import { useNavigate } from 'react-router-dom';
 
 const offers = [
 	{
@@ -108,6 +109,7 @@ const games = [
 const PopulalGames = () => {
 	const scrollRef = useRef(null);
 	const { t } = useTranslation();
+	const navigate = useNavigate();
 
 	const scrollLeft = () => {
 		if (scrollRef.current) {
@@ -119,6 +121,11 @@ const PopulalGames = () => {
 		if (scrollRef.current) {
 			scrollRef.current.scrollBy({ left: 240, behavior: 'smooth' });
 		}
+	};
+
+
+	const handleGameClick = (game) => {
+		navigate(`/category/${encodeURIComponent(game.name)}`);
 	};
 
 	return (
@@ -153,6 +160,7 @@ const PopulalGames = () => {
 						<div
 							key={game.name}
 							className="bg-[#18181b] rounded-2xl w-full flex flex-col items-center justify-between border border-[#23232a] px-4 py-4 min-w-[200px] max-w-[200px] transition-shadow"
+							onClick={() => handleGameClick(game)}
 						>
 							<img
 								src={game.img}
