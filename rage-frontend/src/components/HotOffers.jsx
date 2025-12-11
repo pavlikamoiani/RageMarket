@@ -1,6 +1,7 @@
 import React from 'react'
 import { MdLocalFireDepartment, MdFlashOn, MdStar, MdShoppingCart } from "react-icons/md"
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import CS2 from '../assets/images/cs2-2.jpg'
 
 const offers = [
@@ -64,6 +65,7 @@ const offers = [
 
 const HotOffers = () => {
 	const { t } = useTranslation();
+	const navigate = useNavigate();
 
 	return (
 		<div className="w-full pt-12 pb-8 px-[7%] bg-gradient-to-b from-[#18181b] via-[#23232a] to-[#18181b]">
@@ -86,6 +88,7 @@ const HotOffers = () => {
 					<div
 						key={idx}
 						className="flex-shrink-0 bg-[#18181b] rounded-2xl border border-[#23232a] shadow-lg min-w-[280px] max-w-[320px] w-full flex flex-col justify-between transition hover:shadow-xl"
+						onClick={() => navigate(`/product/${offer.id}`)}
 					>
 						<div className="relative px-5 pt-5 pb-2 h-[140px] flex flex-col">
 							<img src={CS2} alt={offer.game} className="w-full h-32 object-cover rounded-lg mb-2 mt-2 bg-black"

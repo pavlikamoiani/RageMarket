@@ -155,6 +155,7 @@ const PopulalGames = () => {
 				<div
 					ref={scrollRef}
 					className="flex gap-8 overflow-x-scroll w-full scrollbar-thin scrollbar-thumb-[#23232a] scrollbar-track-[#18181b]"
+					style={{ scrollbarWidth: 'none' }}
 				>
 					{games.map((game) => (
 						<div

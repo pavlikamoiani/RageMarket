@@ -14,6 +14,7 @@ import NewArrivals from './components/NewArrivals'
 import ForSellers from './components/ForSellers'
 import Login from './components/Auth/Login'
 import CategoryPage from './components/CategoryPage';
+import ProductPage from './components/ProductPage';
 
 function Home() {
   return (
@@ -37,7 +38,9 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/category" element={<CategoryPage />} />
           <Route path="/category/:gameId" element={<CategoryPage />} />
+          <Route path="/product/:id" element={<ProductPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

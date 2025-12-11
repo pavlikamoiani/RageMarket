@@ -4,6 +4,7 @@ import { MdStar, MdShoppingCart } from "react-icons/md"
 import { FaSearch } from "react-icons/fa"
 import { AiOutlineSliders, AiOutlineClose, AiOutlineDown } from "react-icons/ai"
 import { useTranslation } from 'react-i18next'
+
 const products = [
 	{
 		id: 1,
@@ -79,7 +80,7 @@ const priceRanges = [
 
 const CategoryPage = () => {
 	const { gameId } = useParams()
-	const [selectedGame, setSelectedGame] = useState(decodeURIComponent(gameId))
+	const [selectedGame, setSelectedGame] = useState(gameId ? decodeURIComponent(gameId) : null)
 	const [selectedTypes, setSelectedTypes] = useState([])
 	const [filtersOpen, setFiltersOpen] = useState(false)
 	const { t } = useTranslation();

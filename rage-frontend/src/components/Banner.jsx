@@ -3,9 +3,11 @@ import { FiZap } from "react-icons/fi";
 import { FiShield } from "react-icons/fi";
 import { FiStar } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from 'react-router-dom';
 
 const Banner = () => {
 	const { t } = useTranslation();
+	const navigate = useNavigate();
 
 	return (
 		<div className="min-h-[100vh] flex flex-col justify-center items-center bg-gradient-to-br from-[#000000] via-[#000000] to-[#000000] relative px-2">
@@ -42,7 +44,7 @@ const Banner = () => {
 				</div>
 				{/* Action buttons */}
 				<div className="flex flex-col md:flex-row gap-3 md:gap-4 mt-6 md:mt-8 w-full max-w-[420px]">
-					<button className="w-1/2 py-3 rounded-lg bg-purple-500 text-white font-semibold text-base md:text-sm shadow-lg hover:opacity-90 transition">
+					<button className="w-1/2 py-3 rounded-lg bg-purple-500 text-white font-semibold text-base md:text-sm shadow-lg hover:opacity-90 transition cursor-pointer" onClick={() => navigate('/category')}>
 						{t("game_catalog")}
 					</button>
 					<button className="w-1/2 py-3 rounded-lg bg-[#18181b] text-white font-semibold text-base md:text-sm border border-[#23232a] shadow-lg hover:bg-[#23232a] transition">
