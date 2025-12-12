@@ -138,6 +138,28 @@ const Header = () => {
 						<span className="text-gray-300 text-lg">Буст услуги</span>
 						<span className="text-gray-300 text-lg">Ключи и коды</span>
 					</div>
+					<div className="relative z-50 w-full " ref={langRef}>
+						<button
+							onClick={() => setLangOpen(!langOpen)}
+							className="flex items-center justify-start gap-2 w-full bg-[#18181b] text-gray-300 rounded-lg hover:bg-[#23232a] transition text-base"
+						>
+							<span>{currentLang.toUpperCase()}</span>
+							<SlArrowDown className={`w-4 h-4 transition-transform ${langOpen ? 'rotate-180' : ''}`} />
+						</button>
+						{langOpen && (
+							<div className="absolute left-0 right-0 top-full mt-2 bg-[#18181b] rounded-lg border border-gray-700 z-50 shadow-lg overflow-hidden">
+								{languages.map((lang) => (
+									<button
+										key={lang.code}
+										onClick={() => changeLanguage(lang.code)}
+										className={`block w-full text-left px-4 py-3 text-base hover:bg-[#23232a] transition ${currentLang === lang.code ? 'text-purple-500 bg-[#23232a]' : 'text-gray-300'}`}
+									>
+										{lang.name}
+									</button>
+								))}
+							</div>
+						)}
+					</div>
 					<div className="mt-auto flex flex-col gap-4">
 						<button
 							className="w-full py-3 rounded-xl bg-[#18181b] text-white border border-gray-600 text-lg font-medium"
