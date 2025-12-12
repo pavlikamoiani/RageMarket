@@ -10,7 +10,7 @@ const Login = () => {
 	const { t } = useTranslation()
 
 	return (
-		<div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#0f0c1a] to-[#18181b]">
+		<div className="min-h-screen px-4 flex flex-col items-center justify-center bg-gradient-to-br from-[#0f0c1a] to-[#18181b]">
 			<h2 className="text-3xl font-bold text-white text-center mb-2">{t("welcome_back")}</h2>
 			<p className="text-gray-400 text-center mb-8">{t("dont_have_account")} <button onClick={() => setActiveTab('register')} className="text-purple-400 hover:underline">{t("register_now")}</button></p>
 			<div className="w-full max-w-md bg-[#18181b] rounded-2xl shadow-lg p-8 border border-gray-800">

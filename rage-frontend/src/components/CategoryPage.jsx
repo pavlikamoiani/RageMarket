@@ -194,9 +194,9 @@ const CategoryPage = () => {
 					</aside>
 
 					<div className="flex-1">
-						<div className="mb-6 flex items-center justify-between">
+						<div className="flex items-center justify-between">
 							<button
-								className="border border-zinc-700 text-zinc-400 lg:hidden bg-transparent px-4 py-2 rounded-lg flex items-center gap-2"
+								className="mb-6 border border-zinc-700 text-zinc-400 lg:hidden bg-transparent px-4 py-2 rounded-lg flex items-center gap-2"
 								onClick={() => setFiltersOpen(!filtersOpen)}
 							>
 								<AiOutlineSliders className="h-4 w-4" />
@@ -204,16 +204,16 @@ const CategoryPage = () => {
 								{filtersOpen && <AiOutlineClose className="h-4 w-4" />}
 							</button>
 
-							<div className="flex items-center gap-2">
+							{/* <div className="flex items-center gap-2">
 								<span className="text-sm text-zinc-400">{t("sorting")}:</span>
 								<button className="border border-zinc-700 text-white bg-transparent px-4 py-2 rounded-lg flex items-center gap-2">
 									{t("popular")} <AiOutlineDown className="h-4 w-4" />
 								</button>
-							</div>
+							</div> */}
 						</div>
 
 						{selectedTypes.length > 0 && (
-							<div className="mb-4 flex flex-wrap gap-2">
+							<div className="flex flex-wrap gap-2">
 								{selectedTypes.map((typeId) => {
 									const type = productTypes.find((t) => t.id === typeId)
 									return (
@@ -236,7 +236,7 @@ const CategoryPage = () => {
 							</div>
 						)}
 
-						<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+						<div className="grid items-center justify-center gap-6 sm:grid-cols-2 xl:grid-cols-3">
 							{filtered.map(product => (
 								<div
 									key={product.id}

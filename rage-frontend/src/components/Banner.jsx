@@ -28,7 +28,7 @@ const Banner = () => {
 				{t("secure_transactions_instant_delivery_24_7_support")}
 			</div>
 			<div className="relative z-10 flex flex-col items-center w-full mb-6 md:mb-8">
-				<div className="flex items-center bg-[#18181b] rounded-xl px-2 py-2 md:px-4 md:py-3 w-[620px] shadow-lg">
+				<div className="flex items-center bg-[#18181b] rounded-xl px-2 py-2 md:px-4 md:py-3 w-full md:max-w-[600px] shadow-lg">
 					<svg className="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
 						<circle cx="11" cy="11" r="8" />
 						<line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -43,7 +43,7 @@ const Banner = () => {
 					</button>
 				</div>
 				{/* Action buttons */}
-				<div className="flex flex-col md:flex-row gap-3 md:gap-4 mt-6 md:mt-8 w-full max-w-[420px]">
+				<div className="flex flex-col items-center md:flex-row gap-3 md:gap-4 mt-6 md:mt-8 w-full max-w-[420px]">
 					<button className="w-1/2 py-3 rounded-lg bg-purple-500 text-white font-semibold text-base md:text-sm shadow-lg hover:opacity-90 transition cursor-pointer" onClick={() => navigate('/category')}>
 						{t("game_catalog")}
 					</button>

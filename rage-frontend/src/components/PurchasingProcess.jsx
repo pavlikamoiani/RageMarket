@@ -36,11 +36,14 @@ const PurchasingProcess = () => {
 			</div>
 			<div className="relative flex flex-col items-center">
 				<div className="absolute left-0 right-0 top-7 z-0 flex items-center justify-center w-full pointer-events-none">
-					<div className="mx-auto w-[calc(100%-64px)] h-1 bg-gradient-to-r from-violet-500 via-cyan-400 to-yellow-400 rounded-full opacity-70" />
+					<div className="hidden sm:block mx-auto w-[calc(100%-64px)] h-1 bg-gradient-to-r from-violet-500 via-cyan-400 to-yellow-400 rounded-full opacity-70" />
 				</div>
-				<div className="flex items-start justify-center w-full gap-0 relative z-10">
+				<div className="flex sm:flex-row flex-col items-center sm:justify-center justify-start w-full gap-0 relative z-10">
 					{steps.map((step, idx) => (
-						<div key={step.title} className="flex flex-col items-center flex-1 min-w-[180px] px-2">
+						<div
+							key={step.title}
+							className="flex flex-col items-center flex-1 min-w-[180px] px-2 sm:mb-0 mb-12 relative"
+						>
 							<div className="bg-[#18181b] rounded-xl shadow-lg flex items-center justify-center w-16 h-16 border border-[#23232a] mb-2 z-10">
 								{step.icon}
 							</div>

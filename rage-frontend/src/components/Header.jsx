@@ -51,7 +51,7 @@ const Header = () => {
 				<div className="flex items-center gap-6 md:flex hidden">
 					<div className="flex items-center cursor-pointer text-white font-medium" onClick={() => navigate('/category')}>
 						{t("categories")}
-						<SlArrowDown className="ml-1 w-4 h-4 text-white" />
+						{/* <SlArrowDown className="ml-1 w-4 h-4 text-white" /> */}
 					</div>
 					<span className="flex items-center text-gray-300 cursor-pointer">
 						<FaGamepad className="mr-1 w-4 h-4" />
