@@ -68,19 +68,11 @@ const categories = [
 	{ id: "Fortnite", name: "Fortnite" }
 ]
 
-
-
-const priceRanges = [
-	{ id: "0-1000", label: "До 1000 $" },
-	{ id: "1000-5000", label: "1000 - 5000 $" },
-	{ id: "5000-10000", label: "5000 - 10000 $" },
-	{ id: "10000+", label: "Более 10000 $" },
-]
-
 const CategoryPage = () => {
 	const { gameId } = useParams()
 	const [selectedGame, setSelectedGame] = useState(gameId ? decodeURIComponent(gameId) : null)
 	const [selectedTypes, setSelectedTypes] = useState([])
+	const [selectedPriceRanges, setSelectedPriceRanges] = useState([])
 	const [filtersOpen, setFiltersOpen] = useState(false)
 	const { t } = useTranslation();
 
@@ -90,6 +82,13 @@ const CategoryPage = () => {
 		{ id: "items", label: t("items") },
 		{ id: "boost", label: t("boost") },
 		{ id: "keys", label: t("keys") },
+	]
+
+	const priceRanges = [
+		{ id: "0-1000", label: `${t("up_to")} 1000 $` },
+		{ id: "1000-5000", label: "1000 - 5000 $" },
+		{ id: "5000-10000", label: "5000 - 10000 $" },
+		{ id: "10000+", label: `${t("more_than")} 10000 $` },
 	]
 
 	useEffect(() => {
@@ -103,10 +102,26 @@ const CategoryPage = () => {
 		)
 	}
 
+	const togglePriceRange = (rangeId) => {
+		setSelectedPriceRanges((prev) =>
+			prev.includes(rangeId) ? prev.filter((id) => id !== rangeId) : [...prev, rangeId]
+		)
+	}
+
 	const filtered = products.filter(p => {
 		const byGame = selectedGame ? p.game.toLowerCase() === selectedGame.toLowerCase() : true;
 		const byType = selectedTypes.length > 0 ? selectedTypes.includes(p.type) : true;
-		return byGame && byType;
+		let byPrice = true;
+		if (selectedPriceRanges.length > 0) {
+			byPrice = selectedPriceRanges.some(range => {
+				if (range === "0-1000") return p.price <= 1000;
+				if (range === "1000-5000") return p.price > 1000 && p.price <= 5000;
+				if (range === "5000-10000") return p.price > 5000 && p.price <= 10000;
+				if (range === "10000+") return p.price > 10000;
+				return true;
+			});
+		}
+		return byGame && byType && byPrice;
 	});
 
 	return (
@@ -177,7 +192,12 @@ const CategoryPage = () => {
 										key={range.id}
 										className="flex cursor-pointer items-center gap-2 text-sm text-zinc-400 hover:text-white"
 									>
-										<input type="checkbox" className="border border-zinc-700 accent-violet-600" />
+										<input
+											type="checkbox"
+											checked={selectedPriceRanges.includes(range.id)}
+											onChange={() => togglePriceRange(range.id)}
+											className="border border-zinc-700 accent-violet-600"
+										/>
 										{range.label}
 									</label>
 								))}

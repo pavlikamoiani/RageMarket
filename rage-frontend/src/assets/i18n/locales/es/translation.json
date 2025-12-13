@@ -100,5 +100,7 @@
 	"items": "Artículos",
 	"boost": "Impulso",
 	"keys": "Claves",
-	"verified_sellers": "Vendedores verificados"
+	"verified_sellers": "Vendedores verificados",
+	"up_to": "Hasta",
+	"more_than": "Más de"
 }

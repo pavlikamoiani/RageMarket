@@ -104,5 +104,7 @@
 	"keys": "Ключи",
 	"verified_sellers": "Проверенные продавцы",
 	"additional_information": "Дополнительная информация",
-	"discounted": "Со скидкой"
+	"discounted": "Со скидкой",
+	"up_to": "До",
+	"more_than": "Более"
 }
