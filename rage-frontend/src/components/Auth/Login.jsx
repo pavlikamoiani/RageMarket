@@ -1,29 +1,60 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaEnvelope, FaLock, FaGoogle, FaDiscord, FaUser } from 'react-icons/fa'
 import { useTranslation } from 'react-i18next'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const Login = () => {
-	const [activeTab, setActiveTab] = useState('login')
+	const location = useLocation();
+	const navigate = useNavigate();
+	const { t } = useTranslation();
+
+	const params = new URLSearchParams(location.search);
+	const initialTab = params.get('tab') === 'register' ? 'register' : 'login';
+
+	const [activeTab, setActiveTab] = useState(initialTab);
 	const [showPassword, setShowPassword] = useState(false)
 	const [showRegPassword, setShowRegPassword] = useState(false)
 	const [showRegConfirm, setShowRegConfirm] = useState(false)
-	const { t } = useTranslation()
+
+	useEffect(() => {
+		const tab = new URLSearchParams(location.search).get('tab');
+		if (tab === 'register') setActiveTab('register');
+		else setActiveTab('login');
+	}, [location.search]);
+
 
 	return (
 		<div className="min-h-screen px-4 flex flex-col items-center justify-center bg-gradient-to-br from-[#0f0c1a] to-[#18181b]">
 			<h2 className="text-3xl font-bold text-white text-center mb-2">{t("welcome_back")}</h2>
-			<p className="text-gray-400 text-center mb-8">{t("dont_have_account")} <button onClick={() => setActiveTab('register')} className="text-purple-400 hover:underline">{t("register_now")}</button></p>
+			<p className="text-gray-400 text-center mb-8">
+				{t("dont_have_account")}&nbsp;
+				<button
+					onClick={() => {
+						setActiveTab('register');
+						navigate('/login?tab=register', { replace: true });
+					}}
+					className="text-purple-400 hover:underline"
+				>
+					{t("register_now")}
+				</button>
+			</p>
 			<div className="w-full max-w-md bg-[#18181b] rounded-2xl shadow-lg p-8 border border-gray-800">
 				<div className="flex mb-6">
 					<button
-						className={`flex-1 py-2 rounded-lg font-medium text-lg transition ${activeTab === 'login' ? 'bg-purple-500 text-white' : 'bg-black text-gray-300'}`}
-						onClick={() => setActiveTab('login')}
+						className={`flex-1 py-2 rounded-lg font-medium text-lg transition cursor-pointer ${activeTab === 'login' ? 'bg-purple-500 text-white' : 'bg-black text-gray-300'}`}
+						onClick={() => {
+							setActiveTab('login');
+							navigate('/login?tab=login', { replace: true });
+						}}
 					>
 						{t("login")}
 					</button>
 					<button
-						className={`flex-1 py-2 rounded-lg font-medium text-lg transition ml-2 ${activeTab === 'register' ? 'bg-purple-500 text-white' : 'bg-black text-gray-300'}`}
-						onClick={() => setActiveTab('register')}
+						className={`flex-1 py-2 rounded-lg font-medium text-lg transition ml-2 cursor-pointer ${activeTab === 'register' ? 'bg-purple-500 text-white' : 'bg-black text-gray-300'}`}
+						onClick={() => {
+							setActiveTab('register');
+							navigate('/login?tab=register', { replace: true });
+						}}
 					>
 						{t("register")}
 					</button>
@@ -69,7 +100,7 @@ const Login = () => {
 						</div>
 						<button
 							type="submit"
-							className="w-full py-2 rounded-lg bg-purple-500 text-white font-medium text-lg hover:bg-purple-600 transition"
+							className="w-full py-2 rounded-lg cursor-pointer bg-purple-500 text-white font-medium text-lg hover:bg-purple-600 transition"
 						>
 							{t("login")}
 						</button>
@@ -138,14 +169,14 @@ const Login = () => {
 							</div>
 						</div>
 						<div className="flex items-center text-sm">
-							<input type="checkbox" className="mr-2 accent-purple-500" />
+							<input type="checkbox" className="mr-2 accent-purple-500 cursor-pointer" />
 							<span className="text-gray-400">
 								{t("i_accept")} <a href="#" className="text-purple-400 underline">{t("terms_of_use")}</a> {t("and")} <a href="#" className="text-purple-400 underline">{t("privacy_policy")}</a>
 							</span>
 						</div>
 						<button
 							type="submit"
-							className="w-full py-2 rounded-lg bg-gradient-to-r from-purple-500 to-cyan-400 text-white font-medium text-lg hover:opacity-90 transition"
+							className="w-full py-2 rounded-lg cursor-pointer bg-gradient-to-r from-purple-500 to-cyan-400 text-white font-medium text-lg hover:opacity-90 transition"
 						>
 							{t("create_account")}
 						</button>

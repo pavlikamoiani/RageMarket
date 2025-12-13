@@ -6,6 +6,7 @@ import CS2 from '../assets/images/cs2-2.jpg'
 
 const offers = [
 	{
+		id: 1,
 		game: "GENSHIN IMPACT",
 		title: "Аккаунт Genshin Impact AR 55 | 5★ Hu Tao + Yelan",
 		img: "/images/genshin.png",
@@ -17,9 +18,10 @@ const offers = [
 		seller: "ProGamer",
 		price: 2500,
 		oldPrice: 3500,
-		currency: "₽"
+		currency: "$"
 	},
 	{
+		id: 2,
 		game: "VALORANT",
 		title: "Valorant Аккаунт | Diamond 2 | Все агенты",
 		img: "/images/valorant.png",
@@ -31,9 +33,10 @@ const offers = [
 		seller: "ValorantKing",
 		price: 4200,
 		oldPrice: 5000,
-		currency: "₽"
+		currency: "$"
 	},
 	{
+		id: 3,
 		game: "HONKAI STAR RAIL",
 		title: "Honkai Star Rail Аккаунт | Kafka + Silver Wolf",
 		img: "/images/honkai.png",
@@ -45,9 +48,10 @@ const offers = [
 		seller: "StarRailMaster",
 		price: 3200,
 		oldPrice: 4000,
-		currency: "₽"
+		currency: "$"
 	},
 	{
+		id: 4,
 		game: "FORTNITE",
 		title: "Fortnite Аккаунт | Renegade Raider + 50 скинов",
 		img: "/images/fortnite.png",
@@ -59,7 +63,7 @@ const offers = [
 		seller: "FortniteVault",
 		price: 8900,
 		oldPrice: 12000,
-		currency: "₽"
+		currency: "$"
 	}
 ]
 

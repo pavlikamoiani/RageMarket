@@ -1,14 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { MdStar, MdShoppingCart } from "react-icons/md"
 import { FaSearch } from "react-icons/fa"
 import { AiOutlineSliders, AiOutlineClose, AiOutlineDown } from "react-icons/ai"
+import { AiOutlineClose as X } from "react-icons/ai"
 import { useTranslation } from 'react-i18next'
 
 const products = [
 	{
 		id: 1,
 		game: "Genshin Impact",
+		type: "accounts",
 		title: "Аккаунт Genshin Impact AR 55 | 5★ Hu Tao + Yelan",
 		img: "/images/genshin.png",
 		rating: 4.9,
@@ -16,11 +18,12 @@ const products = [
 		seller: "ProGamer",
 		price: 2500,
 		oldPrice: 3500,
-		currency: "₽"
+		currency: "$"
 	},
 	{
 		id: 2,
 		game: "Valorant",
+		type: "accounts",
 		title: "Valorant Аккаунт | Diamond 2 | Все агенты",
 		img: "/images/valorant.png",
 		rating: 4.8,
@@ -28,11 +31,12 @@ const products = [
 		seller: "ValorantKing",
 		price: 4200,
 		oldPrice: 5000,
-		currency: "₽"
+		currency: "$"
 	},
 	{
 		id: 3,
 		game: "Honkai Star Rail",
+		type: "accounts",
 		title: "Honkai Star Rail Аккаунт | Kafka + Silver Wolf",
 		img: "/images/honkai.png",
 		rating: 4.9,
@@ -40,11 +44,12 @@ const products = [
 		seller: "StarRailMaster",
 		price: 3200,
 		oldPrice: 4000,
-		currency: "₽"
+		currency: "$"
 	},
 	{
 		id: 4,
 		game: "Fortnite",
+		type: "accounts",
 		title: "Fortnite Аккаунт | Renegade Raider + 50 скинов",
 		img: "/images/fortnite.png",
 		rating: 4.8,
@@ -52,7 +57,7 @@ const products = [
 		seller: "FortniteVault",
 		price: 8900,
 		oldPrice: 12000,
-		currency: "₽"
+		currency: "$"
 	}
 ]
 
@@ -63,19 +68,13 @@ const categories = [
 	{ id: "Fortnite", name: "Fortnite" }
 ]
 
-const productTypes = [
-	{ id: "accounts", label: "Аккаунты" },
-	{ id: "currency", label: "Валюта" },
-	{ id: "items", label: "Предметы" },
-	{ id: "boost", label: "Буст услуги" },
-	{ id: "keys", label: "Ключи и коды" },
-]
+
 
 const priceRanges = [
-	{ id: "0-1000", label: "До 1000 ₽" },
-	{ id: "1000-5000", label: "1000 - 5000 ₽" },
-	{ id: "5000-10000", label: "5000 - 10000 ₽" },
-	{ id: "10000+", label: "Более 10000 ₽" },
+	{ id: "0-1000", label: "До 1000 $" },
+	{ id: "1000-5000", label: "1000 - 5000 $" },
+	{ id: "5000-10000", label: "5000 - 10000 $" },
+	{ id: "10000+", label: "Более 10000 $" },
 ]
 
 const CategoryPage = () => {
@@ -85,15 +84,30 @@ const CategoryPage = () => {
 	const [filtersOpen, setFiltersOpen] = useState(false)
 	const { t } = useTranslation();
 
+	const productTypes = [
+		{ id: "accounts", label: t("accounts") },
+		{ id: "currency", label: t("currency") },
+		{ id: "items", label: t("items") },
+		{ id: "boost", label: t("boost") },
+		{ id: "keys", label: t("keys") },
+	]
+
+	useEffect(() => {
+		setSelectedGame(gameId ? decodeURIComponent(gameId) : null)
+	}, [gameId])
+
+
 	const toggleType = (typeId) => {
 		setSelectedTypes((prev) =>
 			prev.includes(typeId) ? prev.filter((t) => t !== typeId) : [...prev, typeId]
 		)
 	}
 
-	const filtered = selectedGame
-		? products.filter(p => p.game.toLowerCase() === selectedGame.toLowerCase())
-		: products;
+	const filtered = products.filter(p => {
+		const byGame = selectedGame ? p.game.toLowerCase() === selectedGame.toLowerCase() : true;
+		const byType = selectedTypes.length > 0 ? selectedTypes.includes(p.type) : true;
+		return byGame && byType;
+	});
 
 	return (
 		<main className=" bg-[#0c0c11]">
@@ -213,7 +227,7 @@ const CategoryPage = () => {
 						</div>
 
 						{selectedTypes.length > 0 && (
-							<div className="flex flex-wrap gap-2">
+							<div className="flex flex-wrap gap-2 mb-4">
 								{selectedTypes.map((typeId) => {
 									const type = productTypes.find((t) => t.id === typeId)
 									return (

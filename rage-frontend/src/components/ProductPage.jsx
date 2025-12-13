@@ -95,9 +95,9 @@ const ProductCard = ({ product }) => (
 			<p className="text-xs sm:text-[11px] font-medium uppercase text-purple-400">{product.game}</p>
 			<h3 className="mt-1 text-base font-semibold text-white truncate">{product.title}</h3>
 			<div className="flex items-center mt-2">
-				<span className="text-lg font-bold text-white">{product.price} ₽</span>
+				<span className="text-lg font-bold text-white">{product.price} $</span>
 				{product.originalPrice && (
-					<span className="ml-2 text-sm text-gray-500 line-through">{product.originalPrice} ₽</span>
+					<span className="ml-2 text-sm text-gray-500 line-through">{product.originalPrice} $</span>
 				)}
 			</div>
 		</div>
@@ -228,9 +228,9 @@ export default function ProductPage({ params }) {
 
 						<div className="rounded-xl border border-gray-700 bg-[#0c0d13] p-4 sm:p-6">
 							<div className="flex items-baseline gap-2 sm:gap-3">
-								<span className="text-2xl sm:text-4xl font-bold text-white">{product.price} ₽</span>
+								<span className="text-2xl sm:text-4xl font-bold text-white">{product.price} $</span>
 								{product.originalPrice && (
-									<span className="text-base sm:text-xl text-gray-400 line-through">{product.originalPrice} ₽</span>
+									<span className="text-base sm:text-xl text-gray-400 line-through">{product.originalPrice} $</span>
 								)}
 							</div>
 

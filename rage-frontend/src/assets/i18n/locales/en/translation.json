@@ -91,7 +91,13 @@
 	"item": "Item",
 	"service": "Service",
 	"product_type": "Product Type",
-	"game_catalog": "Game Catalog",
 	"find_the_right_products_among": "Find the right products among",
-	"offers": "offers"
+	"offers": "offers",
+	"accounts": "Accounts",
+	"currency": "Currency",
+	"items": "Items",
+	"boost": "Boost",
+	"keys": "Keys",
+	"verified_sellers": "Verified Sellers",
+	"additional_information": "Additional Information"
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import { MdFlashOn, MdStar, MdShoppingCart } from "react-icons/md"
 import { useTranslation } from "react-i18next";
 import CS2 from '../assets/images/cs2-2.jpg'
+import { useNavigate } from 'react-router-dom';
 
 const offers = [
 	{
@@ -16,7 +17,7 @@ const offers = [
 		seller: "ProGamer",
 		price: 2500,
 		oldPrice: 3500,
-		currency: "₽"
+		currency: "$"
 	},
 	{
 		game: "GENSHIN IMPACT",
@@ -30,7 +31,7 @@ const offers = [
 		seller: "FastDelivery",
 		price: 890,
 		oldPrice: null,
-		currency: "₽"
+		currency: "$"
 	},
 	{
 		game: "VALORANT",
@@ -44,7 +45,7 @@ const offers = [
 		seller: "ValorantKing",
 		price: 4200,
 		oldPrice: 5000,
-		currency: "₽"
+		currency: "$"
 	},
 	{
 		game: "COUNTER-STRIKE 2",
@@ -58,12 +59,13 @@ const offers = [
 		seller: "CSGOPro",
 		price: 1800,
 		oldPrice: null,
-		currency: "₽"
+		currency: "$"
 	}
 ]
 
 const NewArrivals = () => {
 	const { t } = useTranslation();
+	const navigate = useNavigate();
 
 	return (
 		<div className="w-full pt-12 pb-8 px-[7%] bg-gradient-to-b from-[#18181b] via-[#23232a] to-[#18181b]">
@@ -86,6 +88,7 @@ const NewArrivals = () => {
 					<div
 						key={idx}
 						className="flex-shrink-0 bg-[#18181b] rounded-2xl border border-[#23232a] shadow-lg min-w-[340px] max-w-[340px] w-full flex flex-col justify-between transition hover:shadow-xl"
+						onClick={() => navigate(`/product/${offer.id}`)}
 					>
 						<div className="relative px-5 pt-5 pb-2 h-[140px] flex flex-col">
 							<img src={CS2} alt={offer.game} className="w-full h-32 object-cover rounded-lg mb-2 mt-2 bg-black" />

@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 const Header = () => {
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const [langOpen, setLangOpen] = useState(false);
+	const [categoryOpen, setCategoryOpen] = useState(false);
+	const categoryRef = useRef(null);
 	const { i18n, t } = useTranslation();
 	const langRef = useRef(null);
 	const navigate = useNavigate();
@@ -29,16 +31,15 @@ const Header = () => {
 
 	useEffect(() => {
 		const handleClickOutside = (event) => {
-			if (langRef.current && !langRef.current.contains(event.target)) {
-				setLangOpen(false);
+			if (categoryRef.current && !categoryRef.current.contains(event.target)) {
+				setCategoryOpen(false);
 			}
 		};
-
-		if (langOpen) {
+		if (categoryOpen) {
 			document.addEventListener('mousedown', handleClickOutside);
 			return () => document.removeEventListener('mousedown', handleClickOutside);
 		}
-	}, [langOpen]);
+	}, [categoryOpen]);
 
 	return (
 		<>
@@ -49,15 +50,51 @@ const Header = () => {
 					</div>
 				</div>
 				<div className="flex items-center gap-6 md:flex hidden">
-					<div className="flex items-center cursor-pointer text-white font-medium" onClick={() => navigate('/category')}>
-						{t("categories")}
-						{/* <SlArrowDown className="ml-1 w-4 h-4 text-white" /> */}
+					<div
+						className="flex items-center cursor-pointer text-white font-medium relative"
+						ref={categoryRef}
+					>
+						<button
+							type="button"
+							className="group flex items-center gap-1 cursor-pointer focus:outline-none bg-transparent hover:text-purple-400 transition"
+							onClick={() => setCategoryOpen((prev) => !prev)}
+						>
+							<span>{t("categories")}</span>
+							<SlArrowDown className="ml-1 w-3 h-3 text-white group-hover:text-purple-400 transition-colors" />
+						</button>
+						{categoryOpen && (
+							<div className="absolute left-0 top-full mt-2 bg-[#18181b] rounded-lg border border-gray-700 z-50 min-w-[180px] shadow-lg overflow-hidden">
+								{[
+									{ id: null, name: t("all_games") },
+									{ id: "Genshin Impact", name: "Genshin Impact" },
+									{ id: "Valorant", name: "Valorant" },
+									{ id: "Honkai Star Rail", name: "Honkai Star Rail" },
+									{ id: "Fortnite", name: "Fortnite" }
+								].map((cat) => (
+									<button
+										key={cat.id || 'all'}
+										type="button"
+										onClick={() => {
+											if (cat.id) {
+												navigate(`/category/${encodeURIComponent(cat.id)}`);
+											} else {
+												navigate('/category');
+											}
+											setCategoryOpen(false);
+										}}
+										className="block w-full text-left px-4 py-2 hover:bg-[#23232a] transition text-gray-300"
+									>
+										{cat.name}
+									</button>
+								))}
+							</div>
+						)}
 					</div>
-					<span className="flex items-center text-gray-300 cursor-pointer">
+					<span className="flex items-center text-gray-300 opacity-70 cursor-pointer hover:opacity-100 transition">
 						<FaGamepad className="mr-1 w-4 h-4" />
 						{t("all_games")}
 					</span>
-					<span className="text-gray-300 cursor-pointer">{t("popular")}</span>
+					<span className="text-gray-300 cursor-pointer opacity-70 hover:opacity-100 transition">{t("popular")}</span>
 				</div>
 				<div className="flex-1 flex justify-center md:flex hidden">
 					<div className="relative w-[400px]">
@@ -98,12 +135,12 @@ const Header = () => {
 						<span className="absolute -top-2 -right-2 bg-purple-500 text-white text-xs rounded-full px-1.5">3</span>
 					</div>
 					<button className="flex items-center gap-3 px-4 py-2 bg-[#18181b] text-white rounded-lg hover:bg-[#23232a] transition"
-						onClick={() => navigate('/login')}>
+						onClick={() => navigate('/login?tab=login')}>
 						<SlUser className="w-4 h-4 text-gray-300" />
 						{t("login")}
 					</button>
 					<button className="px-4 py-2 bg-gradient-to-r from-purple-500 to-cyan-400 text-white rounded-lg font-medium hover:opacity-90 transition"
-						onClick={() => navigate('/login')}
+						onClick={() => navigate('/login?tab=register')}
 					>
 						{t("register")}
 					</button>
@@ -115,6 +152,8 @@ const Header = () => {
 					<HiMenu />
 				</button>
 			</div>
+
+			{/* Mobile Menu */}
 			{mobileOpen && (
 				<div className="fixed inset-0 bg-[#18181b] z-40 flex flex-col px-6 py-6 overflow-y-auto">
 					<div className="flex justify-between items-center mb-6">
@@ -163,15 +202,15 @@ const Header = () => {
 					<div className="mt-auto flex flex-col gap-4">
 						<button
 							className="w-full py-3 rounded-xl bg-[#18181b] text-white border border-gray-600 text-lg font-medium"
-							onClick={() => { setMobileOpen(false); navigate('/login'); }}
+							onClick={() => { setMobileOpen(false); navigate('/login?tab=login'); }}
 						>
-							Войти
+							{t("login")}
 						</button>
 						<button
 							className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-500 to-cyan-400 text-white text-lg font-medium"
-							onClick={() => { setMobileOpen(false); navigate('/login'); }}
+							onClick={() => { setMobileOpen(false); navigate('/login?tab=register'); }}
 						>
-							Регистрация
+							{t("register")}
 						</button>
 					</div>
 				</div>

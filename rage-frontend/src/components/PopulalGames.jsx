@@ -17,7 +17,7 @@ const offers = [
 		seller: "ProGamer",
 		price: 2500,
 		oldPrice: 3500,
-		currency: "₽"
+		currency: "$"
 	},
 	{
 		game: "VALORANT",
@@ -31,7 +31,7 @@ const offers = [
 		seller: "ValorantKing",
 		price: 4200,
 		oldPrice: 5000,
-		currency: "₽"
+		currency: "$"
 	},
 	{
 		game: "HONKAI STAR RAIL",
@@ -45,7 +45,7 @@ const offers = [
 		seller: "StarRailMaster",
 		price: 3200,
 		oldPrice: 4000,
-		currency: "₽"
+		currency: "$"
 	},
 	{
 		game: "FORTNITE",
@@ -59,7 +59,7 @@ const offers = [
 		seller: "FortniteVault",
 		price: 8900,
 		oldPrice: 12000,
-		currency: "₽"
+		currency: "$"
 	}
 ]
 

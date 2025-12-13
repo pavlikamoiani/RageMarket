@@ -94,6 +94,11 @@
 	"service": "Servicio",
 	"product_type": "Tipo de producto",
 	"additional_filters": "Filtros adicionales",
-	"reviews": "reseñas",
-	"additional_information": "Información adicional"
+	"additional_information": "Información adicional",
+	"accounts": "Cuentas",
+	"currency": "Moneda",
+	"items": "Artículos",
+	"boost": "Impulso",
+	"keys": "Claves",
+	"verified_sellers": "Vendedores verificados"
 }
