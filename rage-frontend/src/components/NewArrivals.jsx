@@ -79,7 +79,7 @@ const NewArrivals = () => {
 					</div>
 					<div className="text-zinc-400 text-base">{t("fresh_products_from_verified_sellers")}</div>
 				</div>
-				<button className="text-zinc-300 text-base font-medium flex items-center gap-2 hover:underline">
+				<button className="text-zinc-300 cursor-pointer text-base font-medium flex items-center gap-2 hover:underline">
 					{t("view_all")} <span className="text-lg">&#8594;</span>
 				</button>
 			</div>
@@ -87,7 +87,7 @@ const NewArrivals = () => {
 				{offers.map((offer, idx) => (
 					<div
 						key={idx}
-						className="flex-shrink-0 bg-[#18181b] rounded-2xl border border-[#23232a] shadow-lg min-w-[340px] max-w-[340px] w-full flex flex-col justify-between transition hover:shadow-xl"
+						className="flex-shrink-0 cursor-pointer bg-[#18181b] rounded-2xl border border-[#23232a] shadow-lg min-w-[340px] max-w-[340px] w-full flex flex-col justify-between transition hover:shadow-xl"
 						onClick={() => navigate(`/product/${offer.id}`)}
 					>
 						<div className="relative px-5 pt-5 pb-2 h-[140px] flex flex-col">
@@ -128,7 +128,7 @@ const NewArrivals = () => {
 							</div>
 							<button className="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-violet-600 text-white font-semibold text-base hover:bg-violet-700 transition">
 								<MdShoppingCart className="w-5 h-5" />
-								{t("add_to_cart")}
+								{t("buy")}
 							</button>
 						</div>
 					</div>

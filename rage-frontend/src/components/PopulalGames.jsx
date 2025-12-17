@@ -160,7 +160,7 @@ const PopulalGames = () => {
 					{games.map((game) => (
 						<div
 							key={game.name}
-							className="bg-[#18181b] rounded-2xl w-full flex flex-col items-center justify-between border border-[#23232a] px-4 py-4 min-w-[200px] max-w-[200px] transition-shadow"
+							className="bg-[#18181b] rounded-2xl cursor-pointer w-full flex flex-col items-center justify-between border border-[#23232a] px-4 py-4 min-w-[200px] max-w-[200px] transition-shadow"
 							onClick={() => handleGameClick(game)}
 						>
 							<img

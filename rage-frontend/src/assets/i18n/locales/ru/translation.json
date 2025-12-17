@@ -26,7 +26,7 @@
 	"simple_purchase_process_in_4_steps": "Простой процесс покупки в 4 шага",
 	"new_arrivals": "Новые поступления",
 	"fresh_products_from_verified_sellers": "Свежие товары от проверенных продавцов",
-	"add_to_cart": "В корзину",
+	"buy": "Купить",
 	"reviews": "отзывы",
 	"seller": "Продавец",
 	"instant": "Мгновенно",
@@ -106,5 +106,9 @@
 	"additional_information": "Дополнительная информация",
 	"discounted": "Со скидкой",
 	"up_to": "До",
-	"more_than": "Более"
+	"more_than": "Более",
+	"create_account_for_free_in_a_minute": "Создайте аккаунт бесплатно за минуту",
+	"choose_a_convenient_payment_method": "Выберите удобный способ оплаты",
+	"receive_the_product_instantly_or_by_delivery": "Получите товар мгновенно или с доставкой",
+	"confirm_receipt_and_leave_feedback": "Подтвердите получение и оставьте отзыв"
 }

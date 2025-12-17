@@ -5,6 +5,7 @@ import { IoSearch } from "react-icons/io5";
 import { HiMenu, HiX } from "react-icons/hi";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
 	const [mobileOpen, setMobileOpen] = useState(false);
@@ -14,6 +15,7 @@ const Header = () => {
 	const { i18n, t } = useTranslation();
 	const langRef = useRef(null);
 	const navigate = useNavigate();
+	const token = useSelector((state) => state.auth.token);
 
 	const languages = [
 		{ code: 'en', name: 'English' },
@@ -43,6 +45,9 @@ const Header = () => {
 
 	return (
 		<>
+			<div className='w-full flex items-center justify-center bg-[#18181b] text-white py-3'>
+				<p className='tracking-widest'>🌟 Help us to make Rage 🌟</p>
+			</div>
 			<div className="bg-black w-full flex items-center px-[10%] py-5 border-b border-gray-800 md:flex-row flex-row-reverse md:justify-between justify-between relative z-40">
 				<div className="flex items-center mr-4 cursor-pointer" onClick={() => navigate('/')}>
 					<div className="w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-cyan-400">
@@ -110,7 +115,7 @@ const Header = () => {
 					<div className="relative z-50" ref={langRef}>
 						<button
 							onClick={() => setLangOpen(!langOpen)}
-							className="flex items-center gap-2 px-3 py-2 bg-[#18181b] text-gray-300 rounded-lg hover:bg-[#23232a] transition text-sm whitespace-nowrap"
+							className="flex items-center cursor-pointer gap-2 px-4 py-3 bg-[#18181b] text-gray-300 rounded-lg hover:bg-[#23232a] transition text-sm whitespace-nowrap"
 						>
 							{currentLang.toUpperCase()}
 							<SlArrowDown className={`w-3 h-3 transition-transform ${langOpen ? 'rotate-180' : ''}`} />
@@ -130,20 +135,31 @@ const Header = () => {
 							</div>
 						)}
 					</div>
-					<div className="relative">
+					<div className="relative cursor-pointer">
 						<SlBasket className="w-6 h-6 text-gray-300" />
 						<span className="absolute -top-2 -right-2 bg-purple-500 text-white text-xs rounded-full px-1.5">3</span>
 					</div>
-					<button className="flex items-center gap-3 px-4 py-2 bg-[#18181b] text-white rounded-lg hover:bg-[#23232a] transition"
-						onClick={() => navigate('/login?tab=login')}>
-						<SlUser className="w-4 h-4 text-gray-300" />
-						{t("login")}
-					</button>
-					<button className="px-4 py-2 bg-gradient-to-r from-purple-500 to-cyan-400 text-white rounded-lg font-medium hover:opacity-90 transition"
-						onClick={() => navigate('/login?tab=register')}
-					>
-						{t("register")}
-					</button>
+					{!token ? (
+						<>
+							<button className="flex items-center cursor-pointer gap-3 px-4 py-2 bg-[#18181b] text-white rounded-lg hover:bg-[#23232a] transition"
+								onClick={() => navigate('/login?tab=login')}>
+								<SlUser className="w-4 h-4 text-gray-300" />
+								{t("login")}
+							</button>
+							<button className="px-4 py-2 cursor-pointer bg-gradient-to-r  from-purple-500 to-cyan-400 text-white rounded-lg font-medium hover:opacity-90 transition"
+								onClick={() => navigate('/login?tab=register')}
+							>
+								{t("register")}
+							</button>
+						</>
+					) : (
+						<>
+							<button className="flex items-center cursor-pointer gap-3 p-3 ml-1 bg-[#18181b] text-white rounded-lg hover:bg-[#23232a] transition"
+								onClick={() => navigate('/profile')}>
+								<SlUser className="w-4 h-4 text-gray-300" />
+							</button>
+						</>
+					)}
 				</div>
 				<button
 					className="md:hidden flex items-center text-white text-2xl"

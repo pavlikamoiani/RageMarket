@@ -26,7 +26,7 @@
 	"simple_purchase_process_in_4_steps": "Simple purchase process in 4 steps",
 	"new_arrivals": "New Arrivals",
 	"fresh_products_from_verified_sellers": "Fresh products from verified sellers",
-	"add_to_cart": "Add to Cart",
+	"buy": "Buy",
 	"reviews": "reviews",
 	"seller": "Seller",
 	"instant": "Instant",
@@ -99,7 +99,12 @@
 	"boost": "Boost",
 	"keys": "Keys",
 	"verified_sellers": "Verified Sellers",
+	"additional": "Additional",
 	"additional_information": "Additional Information",
 	"up_to": "Up to",
-	"more_than": "More than"
+	"more_than": "More than",
+	"create_account_for_free_in_a_minute": "Create an account for free in a minute",
+	"choose_a_convenient_payment_method": "Choose a convenient payment method",
+	"receive_the_product_instantly_or_by_delivery": "Receive the product instantly or by delivery",
+	"confirm_receipt_and_leave_feedback": "Confirm receipt and leave feedback"
 }

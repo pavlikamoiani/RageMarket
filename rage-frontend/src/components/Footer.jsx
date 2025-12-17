@@ -1,6 +1,6 @@
 import React from 'react'
 import { MdShield, MdCreditCard, MdHeadsetMic } from "react-icons/md"
-import { FaTwitter, FaInstagram, FaYoutube, FaTelegram, FaCcVisa, FaCcMastercard, FaBitcoin } from "react-icons/fa"
+import { FaDiscord, FaInstagram, FaYoutube, FaTelegram, FaCcVisa, FaCcMastercard, FaBitcoin } from "react-icons/fa"
 import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
@@ -57,7 +57,7 @@ const Footer = () => {
 						</button>
 					</div>
 					<div className="flex gap-3">
-						<a href="#" className="bg-[#23232a] rounded-lg p-2 text-zinc-400 hover:text-white"><FaTwitter size={18} /></a>
+						<a href="#" className="bg-[#23232a] rounded-lg p-2 text-zinc-400 hover:text-white"><FaDiscord size={18} /></a>
 						<a href="#" className="bg-[#23232a] rounded-lg p-2 text-zinc-400 hover:text-white"><FaInstagram size={18} /></a>
 						<a href="#" className="bg-[#23232a] rounded-lg p-2 text-zinc-400 hover:text-white"><FaYoutube size={18} /></a>
 						<a href="#" className="bg-[#23232a] rounded-lg p-2 text-zinc-400 hover:text-white"><FaTelegram size={18} /></a>

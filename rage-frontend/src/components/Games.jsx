@@ -57,7 +57,7 @@ const Games = () => {
 					</div>
 					<div className="text-zinc-400 text-base">{t("choose_game_find_products")}</div>
 				</div>
-				<button className="text-violet-400 text-base font-medium flex items-center gap-2 hover:underline">
+				<button className="text-violet-400 cursor-pointer text-base font-medium flex items-center gap-2 hover:underline">
 					{t("all_categories")} <span className="text-lg">&#8594;</span>
 				</button>
 			</div>
@@ -65,7 +65,7 @@ const Games = () => {
 				{games.map((game, idx) => (
 					<div
 						key={game.name}
-						className={`relative rounded-2xl overflow-hidden flex flex-col justify-end min-h-[180px] md:min-h-[220px] shadow-lg bg-gradient-to-br ${game.gradient}`}
+						className={`relative rounded-2xl cursor-pointer overflow-hidden flex flex-col justify-end min-h-[180px] md:min-h-[220px] shadow-lg bg-gradient-to-br ${game.gradient}`}
 					>
 						<img
 							src={game.img}

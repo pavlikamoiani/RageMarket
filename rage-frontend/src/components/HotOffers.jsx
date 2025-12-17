@@ -91,7 +91,7 @@ const HotOffers = () => {
 				{offers.map((offer, idx) => (
 					<div
 						key={idx}
-						className="flex-shrink-0 bg-[#18181b] rounded-2xl border border-[#23232a] shadow-lg min-w-[280px] max-w-[320px] w-full flex flex-col justify-between transition hover:shadow-xl"
+						className="flex-shrink-0 cursor-pointer bg-[#18181b] rounded-2xl border border-[#23232a] shadow-lg min-w-[280px] max-w-[320px] w-full flex flex-col justify-between transition hover:shadow-xl"
 						onClick={() => navigate(`/product/${offer.id}`)}
 					>
 						<div className="relative px-5 pt-5 pb-2 h-[140px] flex flex-col">
@@ -127,7 +127,7 @@ const HotOffers = () => {
 							</div>
 							<button className="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-violet-600 text-white font-semibold text-base hover:bg-violet-700 transition">
 								<MdShoppingCart className="w-5 h-5" />
-								В корзину
+								{t("buy")}
 							</button>
 						</div>
 					</div>

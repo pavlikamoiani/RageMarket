@@ -17,7 +17,6 @@ const products = [
 		reviews: 234,
 		seller: "ProGamer",
 		price: 2500,
-		oldPrice: 3500,
 		currency: "$"
 	},
 	{
@@ -71,8 +70,24 @@ const categories = [
 const CategoryPage = () => {
 	const { gameId } = useParams()
 	const [selectedGame, setSelectedGame] = useState(gameId ? decodeURIComponent(gameId) : null)
-	const [selectedTypes, setSelectedTypes] = useState([])
-	const [selectedPriceRanges, setSelectedPriceRanges] = useState([])
+	const [pendingTypes, setPendingTypes] = useState([]);
+	const [pendingPriceRanges, setPendingPriceRanges] = useState([]);
+	const [pendingAdditional, setPendingAdditional] = useState({
+		instant: false,
+		discounted: false,
+		verified: false,
+	});
+	const [pendingPrice, setPendingPrice] = useState(15000);
+	const [selectedPrice, setSelectedPrice] = useState(15000);
+
+	const [selectedTypes, setSelectedTypes] = useState([]);
+	const [selectedPriceRanges, setSelectedPriceRanges] = useState([]);
+	const [selectedAdditional, setSelectedAdditional] = useState({
+		instant: false,
+		discounted: false,
+		verified: false,
+	});
+
 	const [filtersOpen, setFiltersOpen] = useState(false)
 	const { t } = useTranslation();
 
@@ -84,35 +99,44 @@ const CategoryPage = () => {
 		{ id: "keys", label: t("keys") },
 	]
 
-	const priceRanges = [
-		{ id: "0-1000", label: `${t("up_to")} 1000 $` },
-		{ id: "1000-5000", label: "1000 - 5000 $" },
-		{ id: "5000-10000", label: "5000 - 10000 $" },
-		{ id: "10000+", label: `${t("more_than")} 10000 $` },
-	]
 
 	useEffect(() => {
 		setSelectedGame(gameId ? decodeURIComponent(gameId) : null)
 	}, [gameId])
 
-
-	const toggleType = (typeId) => {
-		setSelectedTypes((prev) =>
+	const togglePendingType = (typeId) => {
+		setPendingTypes((prev) =>
 			prev.includes(typeId) ? prev.filter((t) => t !== typeId) : [...prev, typeId]
 		)
 	}
-
-	const togglePriceRange = (rangeId) => {
-		setSelectedPriceRanges((prev) =>
+	const togglePendingPriceRange = (rangeId) => {
+		setPendingPriceRanges((prev) =>
 			prev.includes(rangeId) ? prev.filter((id) => id !== rangeId) : [...prev, rangeId]
 		)
 	}
+	const handlePendingAdditional = (key) => {
+		setPendingAdditional((prev) => ({ ...prev, [key]: !prev[key] }));
+	}
+	const handlePendingPriceChange = (e) => {
+		setPendingPrice(Number(e.target.value));
+	}
 
+	const applyFilters = () => {
+		setSelectedTypes(pendingTypes);
+		setSelectedPriceRanges(pendingPriceRanges);
+		setSelectedAdditional(pendingAdditional);
+		setSelectedPrice(pendingPrice);
+	};
+
+	// --- FILTERED PRODUCTS ---
 	const filtered = products.filter(p => {
 		const byGame = selectedGame ? p.game.toLowerCase() === selectedGame.toLowerCase() : true;
 		const byType = selectedTypes.length > 0 ? selectedTypes.includes(p.type) : true;
+
 		let byPrice = true;
-		if (selectedPriceRanges.length > 0) {
+		if (selectedPrice !== null && selectedPrice !== undefined) {
+			byPrice = p.price <= selectedPrice;
+		} else if (selectedPriceRanges.length > 0) {
 			byPrice = selectedPriceRanges.some(range => {
 				if (range === "0-1000") return p.price <= 1000;
 				if (range === "1000-5000") return p.price > 1000 && p.price <= 5000;
@@ -121,7 +145,19 @@ const CategoryPage = () => {
 				return true;
 			});
 		}
-		return byGame && byType && byPrice;
+
+		let byAdditional = true;
+		if (selectedAdditional.instant) {
+			byAdditional = byAdditional && p.instantDelivery;
+		}
+		if (selectedAdditional.discounted) {
+			byAdditional = byAdditional && p.oldPrice && p.price < p.oldPrice;
+		}
+		if (selectedAdditional.verified) {
+			byAdditional = byAdditional && p.verifiedSeller;
+		}
+
+		return byGame && byType && byPrice && byAdditional;
 	});
 
 	return (
@@ -135,7 +171,7 @@ const CategoryPage = () => {
 				<div className="mb-6 flex flex-wrap gap-2">
 					<button
 						onClick={() => setSelectedGame(null)}
-						className={`px-4 py-2 rounded-lg font-semibold ${selectedGame === null ? "bg-violet-600 text-white" : "border border-zinc-600 text-zinc-400 hover:border-violet-600 hover:text-white"}`}
+						className={`px-4 py-2 rounded-lg cursor-pointer font-semibold ${selectedGame === null ? "bg-violet-600 text-white" : "border border-zinc-600 text-zinc-400 hover:border-violet-600 hover:text-white"}`}
 					>
 						{t("all_games")}
 					</button>
@@ -143,7 +179,7 @@ const CategoryPage = () => {
 						<button
 							key={cat.id}
 							onClick={() => setSelectedGame(cat.id)}
-							className={`px-4 py-2 rounded-lg font-semibold ${selectedGame === cat.id ? "bg-violet-600 text-white" : "border border-zinc-600 text-zinc-400 hover:border-violet-600 hover:text-white"}`}
+							className={`px-4 py-2 rounded-lg cursor-pointer font-semibold ${selectedGame === cat.id ? "bg-violet-600 text-white" : "border border-zinc-600 text-zinc-400 hover:border-violet-600 hover:text-white"}`}
 						>
 							{cat.name}
 						</button>
@@ -175,7 +211,7 @@ const CategoryPage = () => {
 										<input
 											type="checkbox"
 											checked={selectedTypes.includes(type.id)}
-											onChange={() => toggleType(type.id)}
+											onChange={() => togglePendingType(type.id)}
 											className="border border-zinc-700 accent-violet-600"
 										/>
 										{type.label}
@@ -186,21 +222,21 @@ const CategoryPage = () => {
 
 						<div className="rounded-xl border border-zinc-700 bg-[#12121a] p-4">
 							<h3 className="mb-3 font-semibold text-white">{t("price")}</h3>
-							<div className="space-y-2">
-								{priceRanges.map((range) => (
-									<label
-										key={range.id}
-										className="flex cursor-pointer items-center gap-2 text-sm text-zinc-400 hover:text-white"
-									>
-										<input
-											type="checkbox"
-											checked={selectedPriceRanges.includes(range.id)}
-											onChange={() => togglePriceRange(range.id)}
-											className="border border-zinc-700 accent-violet-600"
-										/>
-										{range.label}
-									</label>
-								))}
+							<div className="flex flex-col gap-2">
+								<input
+									type="range"
+									min={0}
+									max={15000}
+									step={100}
+									value={pendingPrice}
+									onChange={handlePendingPriceChange}
+									className="w-full accent-violet-600"
+								/>
+								<div className="flex justify-between text-xs text-zinc-400 mt-1">
+									<span>0 $</span>
+									<span>{pendingPrice} $</span>
+									<span>15,000 $</span>
+								</div>
 							</div>
 						</div>
 
@@ -208,21 +244,39 @@ const CategoryPage = () => {
 							<h3 className="mb-3 font-semibold text-white">{t("additional")}</h3>
 							<div className="space-y-2">
 								<label className="flex cursor-pointer items-center gap-2 text-sm text-zinc-400 hover:text-white">
-									<input type="checkbox" className="border border-zinc-700 accent-violet-600" />
+									<input
+										type="checkbox"
+										checked={pendingAdditional.instant}
+										onChange={() => handlePendingAdditional('instant')}
+										className="border border-zinc-700 accent-violet-600"
+									/>
 									{t("instant_delivery")}
 								</label>
 								<label className="flex cursor-pointer items-center gap-2 text-sm text-zinc-400 hover:text-white">
-									<input type="checkbox" className="border border-zinc-700 accent-violet-600" />
+									<input
+										type="checkbox"
+										checked={pendingAdditional.discounted}
+										onChange={() => handlePendingAdditional('discounted')}
+										className="border border-zinc-700 accent-violet-600"
+									/>
 									{t("discounted")}
 								</label>
 								<label className="flex cursor-pointer items-center gap-2 text-sm text-zinc-400 hover:text-white">
-									<input type="checkbox" className="border border-zinc-700 accent-violet-600" />
+									<input
+										type="checkbox"
+										checked={pendingAdditional.verified}
+										onChange={() => handlePendingAdditional('verified')}
+										className="border border-zinc-700 accent-violet-600"
+									/>
 									{t("verified_sellers")}
 								</label>
 							</div>
 						</div>
 
-						<button className="w-full bg-violet-600 hover:bg-violet-700 text-white font-semibold py-2 rounded-lg mt-2">
+						<button
+							className="w-full cursor-pointer bg-violet-600 hover:bg-violet-700 text-white font-semibold py-2 rounded-lg mt-2"
+							onClick={applyFilters}
+						>
 							{t("apply_filters")}
 						</button>
 					</aside>
@@ -262,7 +316,7 @@ const CategoryPage = () => {
 									)
 								})}
 								<button
-									className="text-zinc-400 hover:text-white px-2 py-1"
+									className="text-zinc-400 hover:text-white px-2 py-1 cursor-pointer"
 									onClick={() => setSelectedTypes([])}
 								>
 									{t("reset_all")}
@@ -274,7 +328,7 @@ const CategoryPage = () => {
 							{filtered.map(product => (
 								<div
 									key={product.id}
-									className="bg-[#18181b] rounded-2xl border border-[#23232a] shadow-lg min-w-[280px] max-w-[320px] w-full flex flex-col justify-between transition hover:shadow-xl"
+									className="cursor-pointer bg-[#18181b] rounded-2xl border border-[#23232a] shadow-lg min-w-[280px] max-w-[320px] w-full flex flex-col justify-between transition hover:shadow-xl"
 								>
 									<div className="relative px-5 pt-5 pb-2 h-[140px] flex flex-col">
 										<img
@@ -303,7 +357,7 @@ const CategoryPage = () => {
 										</div>
 										<button className="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-violet-600 text-white font-semibold text-base hover:bg-violet-700 transition">
 											<MdShoppingCart className="w-5 h-5" />
-											{t("add_to_cart")}
+											{t("buy")}
 										</button>
 									</div>
 								</div>
@@ -311,7 +365,7 @@ const CategoryPage = () => {
 						</div>
 
 						<div className="mt-8 text-center">
-							<button className="border border-zinc-700 text-white hover:border-violet-600 bg-transparent px-6 py-2 rounded-lg">
+							<button className="border border-zinc-700 cursor-pointer text-white hover:border-violet-600 bg-transparent px-6 py-2 rounded-lg">
 								{t("load_more")}
 							</button>
 						</div>

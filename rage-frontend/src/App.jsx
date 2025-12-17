@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import './App.css'
 import './assets/i18n/i18n'
 
@@ -15,6 +16,7 @@ import ForSellers from './components/ForSellers'
 import Login from './components/Auth/Login'
 import CategoryPage from './components/CategoryPage';
 import ProductPage from './components/ProductPage';
+import Profile from './components/Profile';
 
 function Home() {
   return (
@@ -31,6 +33,7 @@ function Home() {
 }
 
 function App() {
+  const token = useSelector((state) => state.auth.token);
 
   return (
     <BrowserRouter>
@@ -41,6 +44,7 @@ function App() {
           <Route path="/category" element={<CategoryPage />} />
           <Route path="/category/:gameId" element={<CategoryPage />} />
           <Route path="/product/:id" element={<ProductPage />} />
+          {token && <Route path="/profile" element={<Profile />} />}
         </Route>
       </Routes>
     </BrowserRouter>

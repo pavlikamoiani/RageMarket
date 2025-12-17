@@ -17,10 +17,10 @@ const ForSellers = () => {
 						{t('join_thousands_of_sellers_low_fees_fast_payouts_reliable_deal_protection')}
 					</div>
 					<div className="flex gap-4 justify-center">
-						<button className="px-8 py-3 rounded-lg bg-violet-500 text-white font-semibold text-lg shadow-lg hover:bg-violet-600 transition">
+						<button className="px-8 py-3 rounded-lg cursor-pointer bg-violet-500 text-white font-semibold text-lg shadow-lg hover:bg-violet-600 transition">
 							{t('become_a_seller')}
 						</button>
-						<button className="px-8 py-3 rounded-lg bg-transparent border border-zinc-400 text-white font-semibold text-lg hover:bg-zinc-900 transition">
+						<button className="px-8 py-3 rounded-lg cursor-pointer bg-transparent border border-zinc-400 text-white font-semibold text-lg hover:bg-zinc-900 transition">
 							{t('learn_more')}
 						</button>
 					</div>

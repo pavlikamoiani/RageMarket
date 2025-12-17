@@ -26,7 +26,7 @@
 	"simple_purchase_process_in_4_steps": "Proceso de compra simple en 4 pasos",
 	"new_arrivals": "Nuevas llegadas",
 	"fresh_products_from_verified_sellers": "Productos frescos de vendedores verificados",
-	"add_to_cart": "Agregar al carrito",
+	"buy": "Comprar",
 	"reviews": "reseñas",
 	"seller": "Vendedor",
 	"instant": "Instantáneo",
@@ -102,5 +102,9 @@
 	"keys": "Claves",
 	"verified_sellers": "Vendedores verificados",
 	"up_to": "Hasta",
-	"more_than": "Más de"
+	"more_than": "Más de",
+	"create_account_for_free_in_a_minute": "Crea una cuenta gratis en un minuto",
+	"choose_a_convenient_payment_method": "Elige un método de pago conveniente",
+	"receive_the_product_instantly_or_by_delivery": "Recibe el producto al instante o por entrega",
+	"confirm_receipt_and_leave_feedback": "Confirma la recepción y deja tu opinión"
 }

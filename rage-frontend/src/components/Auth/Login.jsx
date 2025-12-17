@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux';
 import { FaEnvelope, FaLock, FaGoogle, FaDiscord, FaUser } from 'react-icons/fa'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
+import defaultinstance from '../../api/defaultinstance';
+import { setToken, setUser } from '../../store/authSlice';
 
 const Login = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const { t } = useTranslation();
+	const dispatch = useDispatch();
 
 	const params = new URLSearchParams(location.search);
 	const initialTab = params.get('tab') === 'register' ? 'register' : 'login';
@@ -16,11 +20,53 @@ const Login = () => {
 	const [showRegPassword, setShowRegPassword] = useState(false)
 	const [showRegConfirm, setShowRegConfirm] = useState(false)
 
+	const [username, setUsername] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
+
 	useEffect(() => {
 		const tab = new URLSearchParams(location.search).get('tab');
 		if (tab === 'register') setActiveTab('register');
 		else setActiveTab('login');
 	}, [location.search]);
+
+
+	const handleLogin = async (e) => {
+		e.preventDefault();
+		try {
+			const response = await defaultinstance.post('/login', {
+				email: email,
+				password: password
+			});
+			const { access_token, user } = response.data;
+			dispatch(setToken(access_token));
+			dispatch(setUser(user));
+			navigate('/');
+			console.log('Login successful:', response.data);
+		} catch (error) {
+			console.error('Login failed:', error);
+		}
+	};
+
+	const handleRegister = async (e) => {
+		e.preventDefault();
+		try {
+			const response = await defaultinstance.post('/register', {
+				name: username,
+				email: email,
+				password: password,
+				password_confirmation: confirmPassword
+			});
+			const { access_token, user } = response.data;
+			dispatch(setToken(access_token));
+			dispatch(setUser(user));
+			navigate('/');
+			console.log('Registration successful:', response.data);
+		} catch (error) {
+			console.error('Registration failed:', error);
+		}
+	}
 
 
 	return (
@@ -69,6 +115,8 @@ const Login = () => {
 									type="email"
 									placeholder="your@email.com"
 									className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#23232a] text-gray-200 focus:outline-none"
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
 								/>
 							</div>
 						</div>
@@ -80,6 +128,8 @@ const Login = () => {
 									type={showPassword ? "text" : "password"}
 									placeholder="••••••••"
 									className="w-full pl-10 pr-10 py-2 rounded-lg bg-[#23232a] text-gray-200 focus:outline-none"
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
 								/>
 								<button
 									type="button"
@@ -101,6 +151,7 @@ const Login = () => {
 						<button
 							type="submit"
 							className="w-full py-2 rounded-lg cursor-pointer bg-purple-500 text-white font-medium text-lg hover:bg-purple-600 transition"
+							onClick={handleLogin}
 						>
 							{t("login")}
 						</button>
@@ -116,6 +167,8 @@ const Login = () => {
 									type="text"
 									placeholder="username"
 									className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#23232a] text-gray-200 focus:outline-none"
+									value={username}
+									onChange={(e) => setUsername(e.target.value)}
 								/>
 							</div>
 						</div>
@@ -127,6 +180,8 @@ const Login = () => {
 									type="email"
 									placeholder="your@email.com"
 									className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#23232a] text-gray-200 focus:outline-none"
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
 								/>
 							</div>
 						</div>
@@ -138,6 +193,8 @@ const Login = () => {
 									type={showRegPassword ? "text" : "password"}
 									placeholder="Минимум 8 символов"
 									className="w-full pl-10 pr-10 py-2 rounded-lg bg-[#23232a] text-gray-200 focus:outline-none"
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
 								/>
 								<button
 									type="button"
@@ -157,6 +214,8 @@ const Login = () => {
 									type={showRegConfirm ? "text" : "password"}
 									placeholder="••••••••"
 									className="w-full pl-10 pr-10 py-2 rounded-lg bg-[#23232a] text-gray-200 focus:outline-none"
+									value={confirmPassword}
+									onChange={(e) => setConfirmPassword(e.target.value)}
 								/>
 								<button
 									type="button"
@@ -177,6 +236,7 @@ const Login = () => {
 						<button
 							type="submit"
 							className="w-full py-2 rounded-lg cursor-pointer bg-gradient-to-r from-purple-500 to-cyan-400 text-white font-medium text-lg hover:opacity-90 transition"
+							onClick={handleRegister}
 						>
 							{t("create_account")}
 						</button>
@@ -190,11 +250,11 @@ const Login = () => {
 							<hr className="flex-1 border-gray-700" />
 						</div>
 						<div className="space-y-3">
-							<button className="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-[#23232a] text-gray-200 hover:bg-[#2d2d38] transition">
+							<button className="w-full flex items-center justify-center cursor-pointer gap-2 py-2 rounded-lg bg-[#23232a] text-gray-200 hover:bg-[#2d2d38] transition">
 								<FaGoogle className="text-lg" />
 								{t("login_with_google")}
 							</button>
-							<button className="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-[#23232a] text-gray-200 hover:bg-[#2d2d38] transition">
+							<button className="w-full flex items-center justify-center cursor-pointer gap-2 py-2 rounded-lg bg-[#23232a] text-gray-200 hover:bg-[#2d2d38] transition">
 								<FaDiscord className="text-lg" />
 								{t("login_with_discord")}
 							</button>

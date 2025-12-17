@@ -38,16 +38,16 @@ const Banner = () => {
 						placeholder={t("search_placeholder")}
 						className="bg-transparent flex-1 text-white placeholder-gray-400 outline-none text-sm md:text-base"
 					/>
-					<button className="ml-2 md:ml-4 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-cyan-400 text-white font-medium hover:opacity-90 transition text-sm md:text-sm">
+					<button className="ml-2 md:ml-4 px-4 py-2 rounded-lg cursor-pointer bg-gradient-to-r from-purple-500 to-cyan-400 text-white font-medium hover:opacity-90 transition text-sm md:text-sm">
 						{t("find")}
 					</button>
 				</div>
 				{/* Action buttons */}
 				<div className="flex flex-col items-center md:flex-row gap-3 md:gap-4 mt-6 md:mt-8 w-full max-w-[420px]">
-					<button className="w-1/2 py-3 rounded-lg bg-purple-500 text-white font-semibold text-base md:text-sm shadow-lg hover:opacity-90 transition cursor-pointer" onClick={() => navigate('/category')}>
+					<button className="w-1/2 py-3 rounded-lg cursor-pointer bg-purple-500 text-white font-semibold text-base md:text-sm shadow-lg hover:opacity-90 transition" onClick={() => navigate('/category')}>
 						{t("game_catalog")}
 					</button>
-					<button className="w-1/2 py-3 rounded-lg bg-[#18181b] text-white font-semibold text-base md:text-sm border border-[#23232a] shadow-lg hover:bg-[#23232a] transition">
+					<button className="w-1/2 py-3 rounded-lg cursor-pointer bg-[#18181b] text-white font-semibold text-base md:text-sm border border-[#23232a] shadow-lg hover:bg-[#23232a] transition">
 						{t("start_selling")}
 					</button>
 				</div>
