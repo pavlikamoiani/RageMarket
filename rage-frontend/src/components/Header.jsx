@@ -5,17 +5,26 @@ import { IoSearch } from "react-icons/io5";
 import { HiMenu, HiX } from "react-icons/hi";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { FaRegUserCircle } from "react-icons/fa";
+import { FiLogOut, FiChevronRight } from "react-icons/fi";
+import { IoMdAddCircle } from "react-icons/io";
+
+import TermsOfSaleModal from './Modals/TermsOfSaleModal';
 
 const Header = () => {
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const [langOpen, setLangOpen] = useState(false);
 	const [categoryOpen, setCategoryOpen] = useState(false);
+	const [profileOpen, setProfileOpen] = useState(false);
 	const categoryRef = useRef(null);
+	const profileRef = useRef(null);
 	const { i18n, t } = useTranslation();
 	const langRef = useRef(null);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const token = useSelector((state) => state.auth.token);
+	const [termsOfSaleOpen, setTermsOfSaleOpen] = useState(false);
 
 	const languages = [
 		{ code: 'en', name: 'English' },
@@ -31,6 +40,15 @@ const Header = () => {
 
 	const currentLang = i18n.language || 'en';
 
+	const user = useSelector((state) => state.auth.user) || {
+		name: 'Guest',
+		status: 'Newbie',
+		points: 0,
+		rewards: 0,
+		wallet: 0.00,
+		avatar: null,
+	};
+
 	useEffect(() => {
 		const handleClickOutside = (event) => {
 			if (categoryRef.current && !categoryRef.current.contains(event.target)) {
@@ -42,6 +60,34 @@ const Header = () => {
 			return () => document.removeEventListener('mousedown', handleClickOutside);
 		}
 	}, [categoryOpen]);
+
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (profileRef.current && !profileRef.current.contains(event.target)) {
+				setProfileOpen(false);
+			}
+		};
+		if (profileOpen) {
+			document.addEventListener('mousedown', handleClickOutside);
+			return () => document.removeEventListener('mousedown', handleClickOutside);
+		}
+	}, [profileOpen]);
+
+	const handleSellClick = () => {
+		const agreed = localStorage.getItem('agreedToTermsOfSale');
+		if (agreed === 'true') {
+			// navigate('/sell');
+		} else {
+			setTermsOfSaleOpen(true);
+		}
+	};
+
+	const handleLogout = () => {
+		// Replace with your logout logic
+		dispatch({ type: "auth/logout" });
+		setProfileOpen(false);
+		navigate('/');
+	};
 
 	return (
 		<>
@@ -135,9 +181,16 @@ const Header = () => {
 							</div>
 						)}
 					</div>
-					<div className="relative cursor-pointer">
+					{/* <div className="relative cursor-pointer">
 						<SlBasket className="w-6 h-6 text-gray-300" />
 						<span className="absolute -top-2 -right-2 bg-purple-500 text-white text-xs rounded-full px-1.5">3</span>
+					</div> */}
+					<div
+						className="cursor-pointer flex flex-row items-center justify-center gap-2 py-3 px-4 bg-[#18181b] text-gray-300 rounded-lg hover:bg-[#23232a] transition-all duration-200 shadow-md "
+						onClick={handleSellClick}
+					>
+						<IoMdAddCircle className="text-gray-300" size={20} />
+						<span className="text-white text-sm font-medium leading-none">Sell</span>
 					</div>
 					{!token ? (
 						<>
@@ -154,10 +207,69 @@ const Header = () => {
 						</>
 					) : (
 						<>
-							<button className="flex items-center cursor-pointer gap-3 p-3 ml-1 bg-[#18181b] text-white rounded-lg hover:bg-[#23232a] transition"
-								onClick={() => navigate('/profile')}>
-								<SlUser className="w-4 h-4 text-gray-300" />
-							</button>
+							{/* Profile dropdown */}
+							<div className="relative" ref={profileRef}>
+								<button
+									className="flex items-center cursor-pointer gap-3 p-3 bg-[#18181b] text-white rounded-lg hover:bg-[#23232a] transition"
+									onClick={() => setProfileOpen((prev) => !prev)}
+								>
+									{user.avatar ? (
+										<img src={user.avatar} alt="avatar" className="w-8 h-8 rounded-full" />
+									) : (
+										<SlUser className="text-gray-300" size={20} />
+									)}
+								</button>
+								{profileOpen && (
+									<div className="absolute right-0 mt-2 w-80 bg-[#18181b] rounded-xl border border-gray-700 z-50 shadow-2xl overflow-hidden">
+										<div className="p-5 border-b border-gray-700 flex items-center gap-4">
+											{user.avatar ? (
+												<img src={user.avatar} alt="avatar" className="w-14 h-14 rounded-full" />
+											) : (
+												<FaRegUserCircle className="w-12 h-12 text-gray-300" />
+											)}
+											<div>
+												<div className="font-bold text-lg text-white">{user.name}</div>
+												<div className="flex items-center gap-2 mt-1">
+													<span className="bg-gradient-to-r from-yellow-400 to-pink-500 text-xs px-2 py-0.5 rounded text-black font-bold">{user.status}</span>
+													<span className="text-xs text-gray-400">{user.points} point</span>
+													<span className="text-xs text-gray-400 underline cursor-pointer">{user.rewards} reward</span>
+												</div>
+											</div>
+										</div>
+										<div className="p-4 border-b border-gray-700">
+											<div className="flex justify-between items-center">
+												<span className="text-gray-300">Wallet Balance</span>
+												<span className="text-yellow-400 font-bold">${(user.wallet ?? 0).toFixed(2)}</span>
+											</div>
+										</div>
+										<div className="py-3 px-4 flex flex-col gap-2">
+											<button onClick={() => { setProfileOpen(false); navigate('/profile'); }} className="flex items-center gap-2 text-gray-200 hover:text-purple-400 py-2">
+												<span className="w-5 h-5 inline-block"><SlArrowDown /></span> Dashboard
+											</button>
+											<button onClick={() => { setProfileOpen(false); navigate('/profile/listing'); }} className="flex items-center gap-2 text-gray-200 hover:text-purple-400 py-2">
+												<span className="w-5 h-5 inline-block"><SlArrowDown /></span> My Listing
+											</button>
+											<button onClick={() => { setProfileOpen(false); navigate('/profile/payout'); }} className="flex items-center gap-2 text-gray-200 hover:text-purple-400 py-2">
+												<span className="w-5 h-5 inline-block"><SlArrowDown /></span> Payout Options
+											</button>
+											<hr className="border-gray-700 my-2" />
+											<button onClick={() => { setProfileOpen(false); navigate('/help-center'); }} className="flex items-center gap-2 text-gray-200 hover:text-purple-400 py-2">
+												<span className="w-5 h-5 inline-block"><SlArrowDown /></span> Help Center
+											</button>
+											<button
+												onClick={handleLogout}
+												className="flex items-center justify-between w-full py-3  transition rounded-2xl"
+											>
+												<span className="flex items-center gap-3">
+													<FiLogOut className="w-6 h-6 text-[#c084fc]" />
+													<span className="font-bold text-white text-base">Logout</span>
+												</span>
+												<FiChevronRight className="w-5 h-5 text-white" />
+											</button>
+										</div>
+									</div>
+								)}
+							</div>
 						</>
 					)}
 				</div>
@@ -230,6 +342,10 @@ const Header = () => {
 						</button>
 					</div>
 				</div>
+			)}
+
+			{termsOfSaleOpen && (
+				<TermsOfSaleModal onClose={() => setTermsOfSaleOpen(false)} />
 			)}
 		</>
 	)
