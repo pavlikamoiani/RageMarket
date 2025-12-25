@@ -9,6 +9,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FaRegUserCircle } from "react-icons/fa";
 import { FiLogOut, FiChevronRight } from "react-icons/fi";
 import { IoMdAddCircle } from "react-icons/io";
+import defaultInstance from '../api/defaultinstance';
+import { clearToken } from '../store/authSlice';
 
 import TermsOfSaleModal from './Modals/TermsOfSaleModal';
 
@@ -76,15 +78,19 @@ const Header = () => {
 	const handleSellClick = () => {
 		const agreed = localStorage.getItem('agreedToTermsOfSale');
 		if (agreed === 'true') {
-			// navigate('/sell');
+			navigate('/sell');
 		} else {
 			setTermsOfSaleOpen(true);
 		}
 	};
 
-	const handleLogout = () => {
-		// Replace with your logout logic
-		dispatch({ type: "auth/logout" });
+	const handleLogout = async () => {
+		try {
+			await defaultInstance.post('/logout');
+		} catch (error) {
+			console.error("Error clearing local storage on logout:", error);
+		}
+		dispatch(clearToken());
 		setProfileOpen(false);
 		navigate('/');
 	};

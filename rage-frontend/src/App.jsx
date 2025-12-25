@@ -17,6 +17,8 @@ import Login from './components/Auth/Login'
 import CategoryPage from './components/CategoryPage';
 import ProductPage from './components/ProductPage';
 import Profile from './components/Profile';
+import Sell from './components/Sell.jsx';
+import AdminPanel from './components/Admin/AdminPanel.jsx';
 
 function Home() {
   return (
@@ -34,6 +36,7 @@ function Home() {
 
 function App() {
   const token = useSelector((state) => state.auth.token);
+  const user = useSelector((state) => state.auth.user);
 
   return (
     <BrowserRouter>
@@ -44,8 +47,16 @@ function App() {
           <Route path="/category" element={<CategoryPage />} />
           <Route path="/category/:gameId" element={<CategoryPage />} />
           <Route path="/product/:id" element={<ProductPage />} />
-          {token && <Route path="/profile" element={<Profile />} />}
+          {token && (
+            <>
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/sell" element={<Sell />} />
+            </>
+          )}
         </Route>
+        {user?.role === 'admin' && (
+          <Route path="/admin" element={<AdminPanel />} />
+        )}
       </Routes>
     </BrowserRouter>
   )

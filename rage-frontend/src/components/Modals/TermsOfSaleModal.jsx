@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { IoMdClose } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
 
 const requirements = [
 	"Provide accurate and truthful information about the product",
@@ -13,6 +14,7 @@ const forbidden = [
 ];
 
 const TermsOfSaleModal = ({ onClose }) => {
+	const navigate = useNavigate();
 	const [checked, setChecked] = useState({
 		req: [false, false, false],
 		forb: [false, false]
@@ -29,6 +31,7 @@ const TermsOfSaleModal = ({ onClose }) => {
 
 	const handleAgree = () => {
 		localStorage.setItem('agreedToTermsOfSale', 'true');
+		navigate('/sell');
 		onClose();
 	};
 

@@ -5,7 +5,6 @@ const defaultInstance = axios.create({
 	baseURL: import.meta.env.VITE_API_BASE_URL,
 	timeout: 10000,
 	headers: {
-		// Этот заголовок заставляет Localtunnel игнорировать страницу-заглушку
 		'Bypass-Tunnel-Reminder': 'any-value',
 		'Accept': 'application/json',
 	}
